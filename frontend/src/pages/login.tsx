@@ -2,18 +2,21 @@ import Input from "../components/input"
 import { useState } from "react"
 import { Mail,KeyRound  } from 'lucide-react';
 import {motion} from 'framer-motion'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { authStore } from "../store/store";
 
 const Login = () => {
   const[email,setEmail]=useState<string>('')
   const[password,setPassword]=useState<string>('')
   const{login,error}=authStore()
+  const navigate=useNavigate()
 
   const handleSubmit=async(e:React.FormEvent)=>{
     e.preventDefault()
     try {
       await login(email,password)
+      navigate('/')
+
     } catch (error) {
       if(error instanceof Error){
         console.log(error.message)
